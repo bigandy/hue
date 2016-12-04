@@ -5,29 +5,30 @@ const lightState = hue.lightState;
 
 const displayResult = function(result) {
 	console.log(JSON.stringify(result, null, 2));
-
-	// for(let key in result.lights) {
-	// 	const jsonResult = JSON.stringify(result.lights[key], null, 2);
-	// 	console.log(jsonResult);
-	// 	// if (jsonResult.state.reachable) {
-	// 		// console.log(jsonResult);
-	// 	// }
-	// }
 };
 
 const state = lightState.create();
 
 const api = new HueApi(config.ip, config.username);
 
-api.setLightState(4, state.on())
-	.then(displayResult)
-	.done();
+// api.setLightState(4, state.on().hsl(116, 100, 100))
+// 	.then(displayResult)
+// 	.done();
 
-// let a = 0;
-// setInterval(function () {
-// 	if (a % 61 === 0) {
-// 		a = 0;
-// 	}
-// 	console.log(a);
-// 	a++;
-// }, 100);
+// api.lightStatus();
+
+
+
+let a = 0;
+setInterval(function () {
+	if (a % 370 === 0) {
+		a = 0;
+	}
+
+	api.setLightState(4, state.hsl(a, 100, 50))
+		.then(displayResult)
+		.done();
+
+	console.log(a);
+	a += 10;
+}, 5000);
